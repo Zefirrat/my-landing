@@ -142,6 +142,7 @@ const sectionVariants = {
 };
 
 export default function App() {
+    console.info('Лабу дабу даб даб! Леонид Павлов, 2025.');
     const [activeImage, setActiveImage] = useState(null);
 
     // Вычисление стажа
