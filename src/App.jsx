@@ -44,12 +44,83 @@ const certificatesSchool = [
 
 
 const stacks = [
-    '.NetCore, Entity Framework, MSSQL, Keycloak, Telegram bot, Hangfire, Distributed monolith',
-    'Blazor, .NetCore, EntityFramework, PostgreSQL, NSwag, TDD, Grafana, Prometheus, Wix',
-    'Golang, Gorm, PostgreSQL, Prometheus, AutoCAD, WinForms',
-    'TypeScript, NestJS, Prisma, PostgreSQL, PgAdmin, Lerna, TDD, Microservices, E2E, Nginx',
-    'Azure DevOps, Azure agents, Build pipelines, Release pipelines, Bash, PowerShell, Batch, IIS, Dockerfile, Docker registry, Docker swarm',
-    'GitLab, Gitlab runner, Dockerfile, Docker-compose, Docker registry, Docker swarm',
+    {
+        category: 'Сервисы .Net',
+        technologies: [
+            '.NetCore',
+            'Entity Framework',
+            'MSSQL',
+            'Keycloak',
+            'Telegram bot',
+            'Hangfire',
+            'Distributed monolith',
+        ],
+    },
+    {
+        category: 'Веб и Desktop',
+        technologies: [
+            'Blazor',
+            '.NetCore',
+            'EntityFramework',
+            'PostgreSQL',
+            'NSwag',
+            'TDD',
+            'Grafana',
+            'Prometheus',
+            'Wix',
+        ],
+    },
+    {
+        category: 'Golang',
+        technologies: [
+            'Gorm',
+            'PostgreSQL',
+            'Prometheus',
+            'AutoCAD',
+            'WinForms',
+        ],
+    },
+    {
+        category: 'TypeScript',
+        technologies: [
+            'NestJS',
+            'Prisma',
+            'PostgreSQL',
+            'PgAdmin',
+            'Lerna',
+            'TDD',
+            'Microservices',
+            'E2E',
+            'Nginx',
+        ],
+    },
+    {
+        category: 'DevOps',
+        technologies: [
+            'Azure DevOps',
+            'Azure agents',
+            'Build pipelines',
+            'Release pipelines',
+            'Bash',
+            'PowerShell',
+            'Batch',
+            'IIS',
+            'Dockerfile',
+            'Docker registry',
+            'Docker swarm',
+        ],
+    },
+    {
+        category: 'CI/CD',
+        technologies: [
+            'GitLab',
+            'Gitlab runner',
+            'Dockerfile',
+            'Docker-compose',
+            'Docker registry',
+            'Docker swarm',
+        ],
+    },
 ];
 
 const achievements = [
@@ -67,7 +138,7 @@ const achievements = [
 
 const sectionVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: (i) => ({ opacity: 1, y: 0, transition: { delay: i * 0.2 } }),
+    visible: (i) => ({ opacity: 1, y: 0, transition: { duration: 0.5 } }),
 };
 
 export default function App() {
@@ -109,25 +180,40 @@ export default function App() {
                     </motion.header>
 
                     {/* About Section */}
-                    <motion.section custom={0} initial="hidden" animate="visible" variants={sectionVariants}>
+                    <motion.section custom={0} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={sectionVariants}>
                         <h2 className="text-3xl font-semibold mb-4 border-b-2 border-blue-300 inline-block">О себе</h2>
                         <p className="leading-relaxed text-blue-100">
-                            Эксперт в проектировании и разработке высоконагруженных и интеграционных систем, автоматизации процессов и CI/CD. Веду проекты от архитектуры до внедрения, менторю команду, активно делюсь опытом.
+                            Эксперт в проектировании и разработке интеграционных систем, автоматизации процессов и CI/CD. Веду проекты от архитектуры до внедрения, менторю команду, активно делюсь опытом.
                         </p>
                     </motion.section>
 
                     {/* Stack Section */}
-                    <motion.section custom={1} initial="hidden" animate="visible" variants={sectionVariants}>
+                    <motion.section custom={1} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={sectionVariants}>
                         <h2 className="text-3xl font-semibold mb-4 border-b-2 border-blue-300 inline-block">Технологический стек</h2>
-                        <ul className="list-disc ml-6 text-blue-100 space-y-1">
+                        <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 text-blue-100">
                             {stacks.map((stack, idx) => (
-                                <li key={idx}>{stack}</li>
+                                <li key={idx}>
+                                    <span className="font-bold">{stack.category}:</span>
+                                    <ul className="list-disc ml-6 mt-1 space-y-1">
+                                        {stack.technologies.map((tech, tIdx) => (
+                                            <motion.li
+                                                key={tIdx}
+                                                initial={{ opacity: 0, x: -10 }}
+                                                whileInView={{ opacity: 1, x: 0 }}
+                                                viewport={{ once: true, amount: 0.6 }}
+                                                transition={{ duration: 0.4, delay: 0 }}
+                                            >
+                                                {tech}
+                                            </motion.li>
+                                        ))}
+                                    </ul>
+                                </li>
                             ))}
                         </ul>
                     </motion.section>
 
                     {/* Timeline Section */}
-                    <motion.section custom={2} initial="hidden" animate="visible" variants={sectionVariants}>
+                    <motion.section custom={2} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={sectionVariants}>
                         <h2 className="text-3xl font-semibold mb-2 border-b-2 border-blue-300 inline-block">Путь</h2>
                         <div className="mb-6">
                             <h3 className="text-xl font-normal text-blue-200 mt-2">
@@ -139,8 +225,9 @@ export default function App() {
                                 <motion.li
                                     key={idx}
                                     initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: idx * 0.2 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true, amount: 0.6 }}
+                                    transition={{ duration: 0.5 }}
                                     className="relative pl-6"
                                 >
                                     <span className="absolute -left-6 top-0 w-4 h-4 bg-blue-400 rounded-full" />
@@ -152,11 +239,19 @@ export default function App() {
                     </motion.section>
 
                     {/* Achievements Section */}
-                    <motion.section custom={3} initial="hidden" animate="visible" variants={sectionVariants}>
+                    <motion.section custom={3} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={sectionVariants}>
                         <h2 className="text-3xl font-semibold mb-4 border-b-2 border-blue-300 inline-block">Достижения</h2>
                         <ul className="list-disc ml-6 text-blue-100 space-y-1">
                             {achievements.map((ach, idx) => (
-                                <li key={idx}>{ach}</li>
+                                <motion.li
+                                    key={idx}
+                                    initial={{ opacity: 0, x: -20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true, amount: 0.6 }}
+                                    transition={{ duration: 0.5, delay: idx * 0.15 }}
+                                >
+                                    {ach}
+                                </motion.li>
                             ))}
                         </ul>
                     </motion.section>
@@ -188,7 +283,7 @@ export default function App() {
                     />
 
                     {/* Contacts Section */}
-                    <motion.section custom={5} initial="hidden" animate="visible" variants={sectionVariants} className="text-center">
+                    <motion.section custom={5} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={sectionVariants} className="text-center">
                         <h2 className="text-3xl font-semibold mb-4 border-b-2 border-blue-300 inline-block">Контакты</h2>
                         <div className="flex flex-col items-center space-y-2 text-blue-100">
                             <a href="mailto:leonid.pavlov@example.com" className="hover:text-blue-200">mail@lpavlov.ru</a>
